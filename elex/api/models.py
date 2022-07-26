@@ -327,6 +327,7 @@ class CandidateReportingUnit(APElection):
         self.eevp = kwargs.get('eevp', None)
         self.uncontested = kwargs.get('uncontested', False)
         self.test = kwargs.get('test', False)
+        self.resultstype = kwargs.get('resultstype', None)
         self.raceid = kwargs.get('raceid', None)
         self.statepostal = kwargs.get('statepostal', None)
         self.statename = kwargs.get('statename', None)
@@ -419,6 +420,7 @@ class CandidateReportingUnit(APElection):
             ('statename', self.statename),
             ('statepostal', self.statepostal),
             ('test', self.test),
+            ('resultstype', self.resultstype),
             ('uncontested', self.uncontested),
             ('votecount', self.votecount),
             ('votepct', round(self.votepct, PCT_PRECISION)),
@@ -487,6 +489,7 @@ class ReportingUnit(APElection):
 
         self.uncontested = kwargs.get('uncontested', False)
         self.test = kwargs.get('test', False)
+        self.resultstype = kwargs.get('resultstype', None)
         self.raceid = kwargs.get('raceid', None)
         self.racetype = kwargs.get('racetype', None)
         self.racetypeid = kwargs.get('racetypeid', None)
@@ -600,6 +603,7 @@ class ReportingUnit(APElection):
             ('statepostal', self.statepostal),
             ('statepostal', self.statepostal),
             ('test', self.test),
+            ('resultstype', self.resultstype),
             ('uncontested', self.uncontested),
             ('votecount', self.votecount),
         ))
@@ -616,6 +620,7 @@ class Race(APElection):
         self.statepostal = kwargs.get('statePostal', None)
         self.statename = kwargs.get('stateName', None)
         self.test = kwargs.get('test', False)
+        self.resultstype = kwargs.get('resultsType', None)
         self.raceid = kwargs.get('raceID', None)
         self.racetype = kwargs.get('raceType', None)
         self.racetypeid = kwargs.get('raceTypeID', None)
@@ -787,6 +792,7 @@ class Race(APElection):
             ('statename', self.statename),
             ('statepostal', self.statepostal),
             ('test', self.test),
+            ('resultstype', self.resultstype),
             ('uncontested', self.uncontested)
         ))
 
@@ -872,6 +878,7 @@ class Election(APElection):
 
         self.testresults = kwargs.get('testresults', False)
         self.liveresults = kwargs.get('liveresults', False)
+        self.resultstype = kwargs.get('resultstype')
         self.electiondate = kwargs.get('electiondate', None)
         self.national = kwargs.get('national', None)
         self.api_key = kwargs.get('api_key', None)
@@ -1044,7 +1051,8 @@ class Election(APElection):
             ('id', self.id),
             ('electiondate', self.electiondate),
             ('liveresults', self.liveresults),
-            ('testresults', self.testresults)
+            ('testresults', self.testresults),
+            ('resultstype', self.resultstype)
         ))
 
     @property
@@ -1055,7 +1063,7 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             officeID=self.officeids,
             apiKey=self.api_key
@@ -1075,7 +1083,7 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=False,
             level="ru",
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             officeID=self.officeids,
             apiKey=self.api_key
@@ -1114,7 +1122,7 @@ class Election(APElection):
             omitResults=False,
             level=self.resultslevel,
             setzerocounts=self.setzerocounts,
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             officeID=self.officeids,
             apiKey=self.api_key
@@ -1133,7 +1141,7 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             officeID=self.officeids,
             apiKey=self.api_key
@@ -1155,7 +1163,7 @@ class Election(APElection):
         raw_races = self.get_raw_races(
             omitResults=True,
             level="ru",
-            test=self.testresults,
+            resultstype=self.resultstype,
             national=self.national,
             apiKey=self.api_key
         )
