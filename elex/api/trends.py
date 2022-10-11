@@ -54,12 +54,12 @@ class BaseTrendReport(utils.UnicodeMixin):
     A base class for retrieving trend reports from the AP API.
     """
     office_code = None
-    api_report_id = 'Trend / g / US'
+    api_report_id = 'trend / G / US'
 
-    def __init__(self, trend_file=None, testresults=False):
+    def __init__(self, trend_file=None, results_type='l'):
         if not self.office_code or not self.api_report_id:
             raise NotImplementedError
-        self.testresults = testresults
+        self.resultstype = results_type
 
         self.load_raw_data(self.office_code, trend_file)
         self.parties = []
@@ -75,7 +75,7 @@ class BaseTrendReport(utils.UnicodeMixin):
             self.raw_data = self.get_ap_report(
                 office_code,
                 params={
-                    'test': self.testresults
+                    'resultsType': self.resultstype
                 }
             )
 
@@ -164,7 +164,7 @@ class USGovernorTrendReport(BaseTrendReport):
     """
     office_code = 'g'
     api_report_id = 'trend / G / US'
-    api_test_report_id = 'Trend / g / test / US'
+    api_test_report_id = 'trend / G / test / US'
 
 
 class USSenateTrendReport(BaseTrendReport):
@@ -173,7 +173,7 @@ class USSenateTrendReport(BaseTrendReport):
     """
     office_code = 's'
     api_report_id = 'trend / S / US'
-    api_test_report_id = 'Trend / s / test / US'
+    api_test_report_id = 'trend / S / test / US'
 
 
 class USHouseTrendReport(BaseTrendReport):
@@ -182,4 +182,4 @@ class USHouseTrendReport(BaseTrendReport):
     """
     office_code = 'h'
     api_report_id = 'trend / H / US'
-    api_test_report_id = 'Trend / h / test / US'
+    api_test_report_id = 'trend / H / test / US'

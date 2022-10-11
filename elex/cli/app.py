@@ -397,7 +397,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             Dem,Governor,7,7,12,19,20,0,-1,0
         """
         self.app.log.info('Getting governor trend report')
-        report = USGovernorTrendReport(self.app.pargs.trend_file)
+        report = USGovernorTrendReport(self.app.pargs.trend_file, self.app.pargs.results_type)
         self.app.render(report.parties)
 
     @expose(help="Get US House trend report")
@@ -422,7 +422,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             Dem,U.S. House,201,201,0,201,193,0,+8,0
         """
         self.app.log.info('Getting US House trend report')
-        report = USHouseTrendReport(self.app.pargs.trend_file)
+        report = USHouseTrendReport(self.app.pargs.trend_file, self.app.pargs.results_type)
         self.app.render(report.parties)
 
     @expose(help="Get US Senate trend report")
@@ -447,7 +447,7 @@ Sets the vote, delegate, and reporting precinct counts to zero.',
             Dem,U.S. Senate,23,23,30,53,51,0,+2,0
         """
         self.app.log.info('Getting US Senate trend report')
-        report = USSenateTrendReport(self.app.pargs.trend_file)
+        report = USSenateTrendReport(self.app.pargs.trend_file, self.app.pargs.results_type)
         self.app.render(report.parties)
 
     @expose(help="Get the next election (if date is specified, will be \
