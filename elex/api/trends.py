@@ -163,7 +163,7 @@ class USGovernorTrendReport(BaseTrendReport):
     A trend report on U.S. governors.
     """
     office_code = 'g'
-    api_report_id = 'Trend / g / US'
+    api_report_id = 'trend / G / US'
     api_test_report_id = 'Trend / g / test / US'
 
 
@@ -172,7 +172,7 @@ class USSenateTrendReport(BaseTrendReport):
     A trend report on the U.S. Senate.
     """
     office_code = 's'
-    api_report_id = 'Trend / s / US'
+    api_report_id = 'trend / S / US'
     api_test_report_id = 'Trend / s / test / US'
 
 
@@ -181,5 +181,5 @@ class USHouseTrendReport(BaseTrendReport):
     A trend report on U.S. House.
     """
     office_code = 'h'
-    api_report_id = 'Trend / h / US'
+    api_report_id = 'trend / H / US'
     api_test_report_id = 'Trend / h / test / US'
