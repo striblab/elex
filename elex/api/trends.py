@@ -28,6 +28,8 @@ class TrendParty(utils.UnicodeMixin):
         self.net_winners = kwargs.get("net_winners", None)
         self.net_leaders = kwargs.get("net_leaders", None)
 
+        self.last_updated = kwargs.get("last_updated", None)
+
     def serialize(self):
         """
         Implements :meth:`APElection.serialize()`.
@@ -43,6 +45,7 @@ class TrendParty(utils.UnicodeMixin):
             ('insufficient_vote', self.insufficient_vote),
             ('net_winners', self.net_winners),
             ('net_leaders', self.net_leaders),
+            ('last_updated', self.last_updated)
         ))
 
     def __unicode__(self):
@@ -130,6 +133,7 @@ class BaseTrendReport(utils.UnicodeMixin):
                 insufficient_vote=self._parse_trend('InsufficientVote', party['trend']),
                 net_winners=self._parse_trend('Winners', party['NetChange']['trend']),
                 net_leaders=self._parse_trend('Leaders', party['NetChange']['trend']),
+                last_updated=self.raw_data['timestamp'],
             )
             self.parties.append(obj)
 
