@@ -84,16 +84,17 @@ def api_request(path, **params):
         `apiKey="<YOUR API KEY>`, your AP API key, or `national=True`,
         for national-only results.
     """
-    params['apiKey'] = params.get('apiKey') or elex.API_KEY
-    if not params['apiKey']:
+    apiKey = params.get('apiKey') or elex.API_KEY
+    if not apiKey:
         raise APAPIKeyException()
+    params.pop('apiKey', None) # Remove API key from get request, per AP security protocols
 
     params['format'] = 'json'
 
     params = sorted(params.items())  # Sort for consistent caching
 
     url = '{0}{1}'.format(elex.BASE_URL, path.replace('//', '/'))
-    response = cache.get(url, params=params)
+    response = cache.get(url, params=params, headers={'x-api-key': apiKey})
     response.raise_for_status()
 
     write_recording(response.json())
