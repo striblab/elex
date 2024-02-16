@@ -26,7 +26,7 @@ setup(
         "CacheControl==0.12.*",
         "cement==2.10.4",
         "lockfile==0.12.2",
-        "pymongo==4.1",
+        "pymongo==4.6",
         "python-dateutil==2.7.*",
         "requests==2.28.*",
         "ujson==5.2.0",
