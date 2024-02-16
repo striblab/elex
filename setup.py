@@ -29,7 +29,7 @@ setup(
         "pymongo==4.6",
         "python-dateutil==2.7.*",
         "requests==2.28.*",
-        "ujson==5.2.0",
+        "ujson==5.9.0",
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
