@@ -24,7 +24,7 @@ setup(
     keywords="election race candidate democracy news associated press",
     install_requires=[
         "CacheControl==0.12.*",
-        "cement==2.10.2",
+        "cement==2.10.4",
         "lockfile==0.12.2",
         "pymongo==4.1",
         "python-dateutil==2.7.*",
