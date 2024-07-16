@@ -4,7 +4,7 @@ Balance of power "trend" reports that summarize by party the national count of g
 """
 from __future__ import unicode_literals
 
-import ujson as json
+import json
 
 from elex.api import utils
 from collections import OrderedDict

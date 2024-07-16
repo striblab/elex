@@ -7,7 +7,7 @@ import os
 import sys
 import six
 import elex
-import ujson as json
+import json
 import time
 import datetime
 from elex import cache
