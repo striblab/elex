@@ -3,7 +3,7 @@
 This module contains the primary :class:`DelegateLoad` class for handling a
 single load of AP delegate counts and methods necessary to obtain them.
 """
-import ujson as json
+import json
 
 from elex.api import utils
 from collections import OrderedDict

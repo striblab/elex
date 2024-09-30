@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import ujson as json
+import json
 import datetime
 from elex.api import maps
 from elex.api import utils

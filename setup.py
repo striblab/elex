@@ -28,8 +28,7 @@ setup(
         "lockfile==0.12.2",
         "pymongo==4.6",
         "python-dateutil==2.7.*",
-        "requests==2.28.*",
-        "ujson==5.9.0",
+        "requests==2.28.*"
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
