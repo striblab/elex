@@ -156,7 +156,7 @@ class BaseTrendReport(utils.UnicodeMixin):
 
             self._parse_trend('Won', trend_list)
         """
-        return next(d for d in trend_list if key in d)[key]
+        return next(d["value"] for d in trend_list if d["name"] == key )
 
     def __unicode__(self):
         return self.office_code
@@ -167,8 +167,8 @@ class USGovernorTrendReport(BaseTrendReport):
     A trend report on U.S. governors.
     """
     office_code = 'g'
-    api_report_id = 'trend / G / US'
-    api_test_report_id = 'trend / G / test / US'
+    api_report_id = 'Trend / G / US'
+    api_test_report_id = 'Trend / G / test / US'
 
 
 class USSenateTrendReport(BaseTrendReport):
@@ -176,8 +176,8 @@ class USSenateTrendReport(BaseTrendReport):
     A trend report on the U.S. Senate.
     """
     office_code = 's'
-    api_report_id = 'trend / S / US'
-    api_test_report_id = 'trend / S / test / US'
+    api_report_id = 'Trend / S / US'
+    api_test_report_id = 'Trend / S / test / US'
 
 
 class USHouseTrendReport(BaseTrendReport):
@@ -185,5 +185,5 @@ class USHouseTrendReport(BaseTrendReport):
     A trend report on U.S. House.
     """
     office_code = 'h'
-    api_report_id = 'trend / H / US'
-    api_test_report_id = 'trend / H / test / US'
+    api_report_id = 'Trend / H / US'
+    api_test_report_id = 'Trend / H / test / US'
