@@ -59,27 +59,29 @@ class BaseTrendReport(utils.UnicodeMixin):
     office_code = None
     api_report_id = 'trend / G / US'
 
-    def __init__(self, trend_file=None, results_type='l'):
+    def __init__(self, trend_file=None, results_type='l', apiKey = None):
         if not self.office_code or not self.api_report_id:
             raise NotImplementedError
         self.resultstype = results_type
 
-        self.load_raw_data(self.office_code, trend_file)
+        self.load_raw_data(self.office_code, trend_file, apiKey)
         self.parties = []
         self.output_parties()
 
-    def load_raw_data(self, office_code, trend_file=None):
+    def load_raw_data(self, office_code, trend_file=None, apiKey = None):
         """
         Gets underlying data lists we need for parsing.
         """
         if trend_file:
             self.raw_data = self.get_ap_file(trend_file)
         else:
+            params = {'resultsType': self.resultstype}
+            if apiKey:
+                params['apiKey'] = apiKey
+            
             self.raw_data = self.get_ap_report(
                 office_code,
-                params={
-                    'resultsType': self.resultstype
-                }
+                params=params
             )
 
     def get_ap_file(self, path):
