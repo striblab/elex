@@ -64,7 +64,7 @@ class BaseTrendReport(utils.UnicodeMixin):
             raise NotImplementedError
         self.resultstype = results_type
 
-        self.load_raw_data(self.office_code, trend_file, apiKey)
+        self.load_raw_data(self.office_code, trend_file, apiKey=apiKey)
         self.parties = []
         self.output_parties()
 
