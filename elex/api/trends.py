@@ -101,7 +101,7 @@ class BaseTrendReport(utils.UnicodeMixin):
         reports = utils.get_reports(params=params)
         report_id = self.get_report_id(reports, key)
         if report_id:
-            r = utils.api_request('/reports/{0}'.format(report_id))
+            r = utils.api_request('/reports/{0}'.format(report_id), **params)
             return r.json()['trendtable']
 
     def get_report_id(self, reports, key):
