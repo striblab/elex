@@ -2,6 +2,7 @@
 Utility functions to record raw election results and handle low-level HTTP
 interaction with the Associated Press Election API.
 """
+
 from __future__ import print_function
 import os
 import sys
@@ -19,13 +20,14 @@ class UnicodeMixin(object):
     """
     Python 2 + 3 compatibility for __unicode__
     """
+
     if sys.version_info > (3, 0):
         __str__ = lambda x: x.__unicode__()
     else:
-        __str__ = lambda x: six.text_type(x).encode('utf-8')
+        __str__ = lambda x: six.text_type(x).encode("utf-8")
 
     def __repr__(self):
-        return '<{}: {}>'.format(self.__class__.__name__, self.__str__())
+        return "<{}: {}>".format(self.__class__.__name__, self.__str__())
 
 
 def write_recording(payload):
@@ -40,31 +42,25 @@ def write_recording(payload):
     :param payload:
         JSON payload from Associated Press Elections API.
     """
-    recorder = os.environ.get('ELEX_RECORDING', False)
+    recorder = os.environ.get("ELEX_RECORDING", False)
     if recorder:
         timestamp = int(time.mktime(datetime.datetime.now().timetuple()))
-        if recorder == u"mongodb":
+        if recorder == "mongodb":
             MONGODB_CLIENT = MongoClient(
-                os.environ.get(
-                    'ELEX_RECORDING_MONGO_URL',
-                    'mongodb://localhost:27017/'
-                )
+                os.environ.get("ELEX_RECORDING_MONGO_URL", "mongodb://localhost:27017/")
             )
             MONGODB_DATABASE = MONGODB_CLIENT[
-                os.environ.get(
-                    'ELEX_RECORDING_MONGO_DB',
-                    'ap_elections_loader'
-                )
+                os.environ.get("ELEX_RECORDING_MONGO_DB", "ap_elections_loader")
             ]
             collection = MONGODB_DATABASE.elex_recording
             collection.insert({"time": timestamp, "data": payload})
-        elif recorder == u"flat":
-            recorder_directory = os.environ.get('ELEX_RECORDING_DIR', '/tmp')
-            json_path = '%s/ap_elections_loader_recording-%s.json' % (
+        elif recorder == "flat":
+            recorder_directory = os.environ.get("ELEX_RECORDING_DIR", "/tmp")
+            json_path = "%s/ap_elections_loader_recording-%s.json" % (
                 recorder_directory,
-                timestamp
+                timestamp,
             )
-            with open(json_path, 'w') as writefile:
+            with open(json_path, "w") as writefile:
                 writefile.write(json.dumps(payload))
 
 
@@ -79,22 +75,24 @@ def api_request(path, **params):
     * Contains an API_KEY.
     * Returns a response object.
 
-    :param \**params:
+    :param **params:
         Extra parameters to pass to `requests`. For example,
         `apiKey="<YOUR API KEY>`, your AP API key, or `national=True`,
         for national-only results.
     """
-    apiKey = params.get('apiKey') or elex.API_KEY
+    apiKey = params.get("apiKey") or elex.API_KEY
     if not apiKey:
         raise APAPIKeyException()
-    params.pop('apiKey', None) # Remove API key from get request, per AP security protocols
+    params.pop(
+        "apiKey", None
+    )  # Remove API key from get request, per AP security protocols
 
-    params['format'] = 'json'
+    params["format"] = "json"
 
     params = sorted(params.items())  # Sort for consistent caching
 
-    url = '{0}{1}'.format(elex.BASE_URL, path.replace('//', '/'))
-    response = cache.get(url, params=params, headers={'x-api-key': apiKey})
+    url = "{0}{1}".format(elex.BASE_URL, path.replace("//", "/"))
+    response = cache.get(url, params=params, headers={"x-api-key": apiKey})
     response.raise_for_status()
 
     write_recording(response.json())
@@ -105,8 +103,8 @@ def get_reports(params={}):
     """
     Get data from `reports` endpoints.
     """
-    resp = api_request('/reports', **params)
+    resp = api_request("/reports", **params)
     if resp.ok:
-        return resp.json().get('reports')
+        return resp.json().get("reports")
     else:
         return []
